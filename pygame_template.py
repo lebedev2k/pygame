@@ -13,8 +13,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-    win.fill((100,255,0))
+    win.fill((100, 255, 0))
 
     pygame.display.update()
     clock.tick(30)
-
