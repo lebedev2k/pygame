@@ -1,5 +1,5 @@
 import pygame
-from sys import exit
+import sys
 
 pygame.init()
 win = pygame.display.set_mode((1050, 500))
@@ -13,7 +13,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-    win.fill((100, 255, 0))
+    win.fill((30, 30, 80))
 
     pygame.display.update()
     clock.tick(30)
