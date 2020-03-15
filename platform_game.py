@@ -7,6 +7,8 @@ win = pygame.display.set_mode((1050, 500))
 pygame.display.set_caption('Pygame template')
 clock = pygame.time.Clock()
 
+bg = pygame.image.load('img\TileSet_08.png')
+
 pl = Platform()
 
 while True:
@@ -15,7 +17,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-    win.fill((30, 30, 80))
+    win.blit(bg, (0, 0))
 
     pygame.display.update()
     clock.tick(30)
