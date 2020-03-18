@@ -2,7 +2,7 @@ import pygame
 
 STEP = 10
 GRAVITY = 0.4
-JUMP = 5
+JUMP = 10
 
 
 class Hero (pygame.sprite.Sprite):
@@ -19,14 +19,11 @@ class Hero (pygame.sprite.Sprite):
         self.onGround = False
         self.velY = 0
 
-    def update(self, left, right, up, platforms):
+    def update(self, left, right, up, platforms, *plat2):
         if left:
             self.rect.x -= STEP
         if right:
             self.rect.x += STEP
-
-        self.rect.y += self.velY
-        self.check_collide(platforms, left, right, up)
 
         if not self.onGround:
             self.velY += GRAVITY
@@ -34,6 +31,10 @@ class Hero (pygame.sprite.Sprite):
             self.velY += -JUMP
 
         self.onGround = False
+        self.check_collide2(platforms, left, right, False, plat2)
+
+        self.rect.y += self.velY
+        self.check_collide2(platforms, False, False, True, plat2)
 
     def check_collide(self, platforms, left, right, up):
         for p in platforms:
@@ -42,12 +43,29 @@ class Hero (pygame.sprite.Sprite):
                     self.rect.left = p.rect.right
                 if right:
                     self.rect.right = p.rect.left
-                
-                if up and self.velY<0:
-                    self.rect.top = p.rect.bottom
-                
-                if up and self.velY>0:
+
+                if up and self.velY > 0:
                     self.rect.bottom = p.rect.top
-                
+                    self.velY = 0
+                    self.onGround = True
+
+                if up and self.velY < 0:
+                    self.rect.top = p.rect.bottom
+                    self.velY = 0
+
+    def check_collide2(self, platforms, left, right, up, *plat2):
+        a = pygame.sprite.spritecollide(self, platforms, False)
+        if a:
+            if left:
+                self.rect.left = a[0].rect.right
+            if right:
+                self.rect.right = a[0].rect.left
+
+            if up and self.velY > 0:
+                self.rect.bottom = a[0].rect.top
                 self.velY = 0
                 self.onGround = True
+
+            if up and self.velY < 0:
+                self.rect.top = a[0].rect.bottom
+                self.velY = 0

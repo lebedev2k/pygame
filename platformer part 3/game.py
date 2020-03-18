@@ -55,7 +55,7 @@ while True:
     win.blit(bg, (0, 0))
     #win.blit(bgg, (100, 100))
     #win.blit(p.image, (p.rect.x, p.rect.y))
-    h_group.update(left, right, up, pl_group.sprites())
+    h_group.update(left, right, up, pl_group.sprites(), pl_group)
 
     pl_group.draw(win)
     h_group.draw(win)
