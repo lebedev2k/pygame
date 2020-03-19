@@ -1,4 +1,5 @@
 import pygame
+import pyganim
 
 STEP = 10
 GRAVITY = 0.4
