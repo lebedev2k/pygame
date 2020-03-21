@@ -2,6 +2,7 @@ import pygame
 
 STEP = 10
 GRAVITY = 0.2
+JUMP = 10
 
 
 class Hero (pygame.sprite.Sprite):
@@ -17,23 +18,46 @@ class Hero (pygame.sprite.Sprite):
         self.rect.move_ip(x, y)
         self.onGround = False
         self.velY = 0
+        self.velX = 0
 
     def update(self, left, right, up, platforms):
+        # print(up)
         if left:
-            self.rect.x -= STEP
+            self.velX = -STEP
         if right:
-            self.rect.x += STEP
+            self.velX = STEP
+
+        if not (left or right):
+            self.velX = 0
 
         if not self.onGround:
             self.velY += GRAVITY
 
-        self.rect.y += self.velY
-        self.check_collide(platforms)
-        self.onGround = False
+        if up and self.onGround:
+            self.velY += -JUMP
+            self.onGround = False
 
-    def check_collide(self, platforms):
+        self.rect.x += self.velX
+        self.onGround = False
+        self.check_collide(platforms, up)
+
+        self.rect.y += self.velY
+        self.check_collide(platforms, up)
+
+    def check_collide(self, platforms, up):
         for p in platforms:
             if self.rect.colliderect(p.rect):
-                self.rect.bottom = p.rect.top
-                self.velY = 0
-                self.onGround = True
+                if not up and self.velX > 0:
+                    self.rect.right = p.rect.left
+
+                if not up and self.velX < 0:
+                    self.rect.left = p.rect.right
+
+                if up and self.velY > 0:
+                    self.rect.bottom = p.rect.top
+                    self.velY = 0
+                    self.onGround = True
+
+                if up and self.velY < 0:
+                    self.rect.top = p.rect.bottom
+                    self.velY = 0
