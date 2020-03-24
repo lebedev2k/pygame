@@ -1,7 +1,7 @@
 import pygame
 import sys
 from platforma import *
-from hero import *
+from hero1 import *
 
 pygame.init()
 win = pygame.display.set_mode((640, 320))
