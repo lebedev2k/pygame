@@ -15,6 +15,7 @@ bg = pygame.Surface((640, 320))
 bg.fill((100, 100, 100))
 
 pl_group = pygame.sprite.Group()
+pl_groupX = pygame.sprite.Group()
 x = 0
 y = 0
 for row in level1:
@@ -22,6 +23,9 @@ for row in level1:
         if col == '-':
             p = Platform(x, y)
             pl_group.add(p)
+        if col == '*':
+            p = PlatformX(x, y)
+            pl_groupX.add(p)
         x += PLATFORM_WIDTH
     x = 0
     y += PLATFORM_HEIGHT
@@ -55,9 +59,10 @@ while True:
     win.blit(bg, (0, 0))
     #win.blit(bgg, (100, 100))
     #win.blit(p.image, (p.rect.x, p.rect.y))
-    h_group.update(left, right, up, pl_group.sprites())
+    h_group.update(left, right, up, pl_group.sprites(), pl_groupX.sprites())
 
     pl_group.draw(win)
+    pl_groupX.draw(win)
     h_group.draw(win)
 
     pygame.display.update()
