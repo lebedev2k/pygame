@@ -1,5 +1,7 @@
 import pygame
 import pyganim
+import os
+from utils import getPygAnimListFromDir
 
 STEP = 2
 GRAVITY = 0.2
@@ -7,19 +9,22 @@ JUMP = 7
 DELAY = 100
 FILL_COLOR = (170, 0, 0)
 
-imgRight = [
-    ('platformer/img/2_enemies_1_walk_000.png', 100),
-    ('platformer/img/2_enemies_1_walk_001.png', 100),
-    ('platformer/img/2_enemies_1_walk_002.png', 100),
-    ('platformer/img/2_enemies_1_walk_003.png', 100),
-    ('platformer/img/2_enemies_1_walk_004.png', 100),
-    ('platformer/img/2_enemies_1_walk_005.png', 100),
-    ('platformer/img/2_enemies_1_walk_006.png', 100),
-    ('platformer/img/2_enemies_1_walk_007.png', 100),
-    ('platformer/img/2_enemies_1_walk_008.png', 100),
-]
+path = os.path.dirname(__file__)+'/img/hero'
+imgRight = getPygAnimListFromDir(path, 100)
 
-imgStand = pygame.image.load('platformer/img/2_enemies_1_walk_000.png')
+# imgRight = [
+#     ('platformer/img/2_enemies_1_walk_000.png', 100),
+#     ('platformer/img/2_enemies_1_walk_001.png', 100),
+#     ('platformer/img/2_enemies_1_walk_002.png', 100),
+#     ('platformer/img/2_enemies_1_walk_003.png', 100),
+#     ('platformer/img/2_enemies_1_walk_004.png', 100),
+#     ('platformer/img/2_enemies_1_walk_005.png', 100),
+#     ('platformer/img/2_enemies_1_walk_006.png', 100),
+#     ('platformer/img/2_enemies_1_walk_007.png', 100),
+#     ('platformer/img/2_enemies_1_walk_008.png', 100),
+# ]
+
+imgStand = pygame.image.load('platformer/img/hero/2_enemies_1_walk_000.png')
 imgStand = pygame.transform.scale(imgStand, (32, 32))
 
 animRight = pyganim.PygAnimation(imgRight)
