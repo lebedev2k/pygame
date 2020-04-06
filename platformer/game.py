@@ -2,6 +2,8 @@ import pygame
 import sys
 from platforma import *
 from hero1 import *
+from bonuses import *
+
 
 pygame.init()
 win = pygame.display.set_mode((640, 320))
@@ -26,6 +28,9 @@ for row in level1:
         if col == '*':
             p = PlatformX(x, y)
             pl_groupX.add(p)
+        if col == '1':
+            p = Bonus(x, y, 'platformer/img/coins/1')
+            pl_group.add(p)
         x += PLATFORM_WIDTH
     x = 0
     y += PLATFORM_HEIGHT
@@ -60,6 +65,7 @@ while True:
     #win.blit(bgg, (100, 100))
     #win.blit(p.image, (p.rect.x, p.rect.y))
     h_group.update(left, right, up, pl_group.sprites(), pl_groupX.sprites())
+    pl_group.update()
 
     pl_group.draw(win)
     pl_groupX.draw(win)

@@ -1,34 +1,21 @@
 import os
-import pyganim
-import pygame
 
-def getPygAnimListFromDir(dirpath, delay):
+# imgRight = [
+#     ('platformer/img/hero/2_enemies_1_walk_000.png', 100),
+#     ('platformer/img/hero/2_enemies_1_walk_001.png', 100),
+#     ('platformer/img/hero/2_enemies_1_walk_002.png', 100),
+# ]
+
+
+def getPygAnimListFromDir(folder, delay):
     res = []
-
-    for a in os.listdir(dirpath):
-        s = dirpath+'/'+a
+    a = os.listdir(folder)
+    for i in a:
+        s = folder + '/' + i
         if os.path.isfile(s):
             res.append((s, delay))
-        # print(s)
-
     return res
-def getImagesFromSpriteSheet(filename, startX, startY, width, height, rows, cols):
-    x = startX
-    y = startY
-    res = []
-    for i in range(0, rows):
-        for j in range(0, cols):
-            rect = (x,y,width,height)
-            res.append(rect)
-            x += width
-        x = startX
-        y += height
-    
-    return pyganim.getImagesFromSpriteSheet(filename, rects=res)
 
-# path = os.path.dirname(__file__)+'/img/coins/1'
-# animList = getPygAnimListFromDir(path, 100)
-# print(animList)
-if __name__ == "__main__":
-    a = getImagesFromSpriteSheet('platformer/img/character/run/1x.png',0,0,100,100,1,10)
-    print(a)
+
+# a = getPygAnimList('platformer/img/coins/1', 100)
+# print(a)
